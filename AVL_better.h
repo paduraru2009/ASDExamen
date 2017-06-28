@@ -56,6 +56,11 @@ public:
 		return Add(item, root);
 	}
 
+	AVLNode<T>* Find(T item)
+	{
+		return Find(item, root);
+	}
+
 	bool Remove(T item)
 	{
 		return Remove(item, root);
@@ -182,6 +187,19 @@ private:
 		}
 
 		return false; // no need to add already existing node
+	}
+
+	AVLNode<T>* Find(T item, AVLNode<T>* node)
+	{
+		if (node == NULL)
+			return NULL;
+
+		if (item > node->value)
+			return Find(item, node->right);
+		else if (item < node->value)
+			return Find(item, node->left);
+		else
+			return node;
 	}
 
 	bool Remove(T item, AVLNode<T> *&node)

@@ -1,6 +1,3 @@
-// https://courses.cs.washington.edu/courses/cse373/06sp/handouts/lecture12.pdf
-// https://kukuruku.co/post/avl-trees/
-
 #include <stdio.h>
 #include <vector>
 #include <cstdlib>
@@ -181,28 +178,33 @@ void unitTest()
 }
 
 #define SEED_TO_USE 0
-#define NUM_TESTS 5
-const int numItemsToInsert[NUM_TESTS] = { 1 << 20, 1 << 21,  1 << 22};
+#define NUM_TESTS 3
+const int numItemsToInsert[NUM_TESTS] = { 1 << 20, 1 << 21};
+const int numQueries[NUM_TESTS] = { 1<<20, 1<<21};
 
 int main()
 {
+	AVLTree<int> tree(0);
+	std::set<int> rbTree;
+	btree bt;
 	for (int testId = 0; testId < NUM_TESTS; testId++)
 	{
 		const int itemsToInsert = numItemsToInsert[testId];
 
 		PROFILE_BLOCK("Binary insert");
 		//Node* tree = nullptr;
-		btree bt;
+		
 		for (int i = 0; i < itemsToInsert; i++)
 		{
 			bt.insert(std::rand());
 		}
 		/*
+		
 		std::srand(SEED_TO_USE);
 		{
 			PROFILE_BLOCK("AVL insert");
 			//Node* tree = nullptr;
-			AVLTree<int> tree(0);
+			
 			for (int i = 0; i < itemsToInsert; i++)
 			{
 				tree.Add(std::rand());
@@ -213,10 +215,46 @@ int main()
 		std::srand(SEED_TO_USE);
 		{
 			PROFILE_BLOCK("RBT insert");
-			std::set<int> rbTree;
+			
 			for (int i = 0; i < itemsToInsert; i++)
 			{
 				rbTree.insert(std::rand());
+			}
+		}	
+		*/
+	}
+
+	for (int testId = 0; testId < NUM_TESTS; testId++)
+	{
+		const int itemsToQuery = numQueries[testId];
+
+		PROFILE_BLOCK("Binary insert");
+		//Node* tree = nullptr;
+
+		for (int i = 0; i < itemsToQuery; i++)
+		{
+			bt.insert(std::rand());
+		}
+		/*
+		std::srand(SEED_TO_USE);
+		{
+			PROFILE_BLOCK("AVL find");
+			//Node* tree = nullptr;
+
+			for (int i = 0; i < itemsToQuery; i++)
+			{
+				tree.Find(std::rand());
+				//tree = insert(tree, std::rand(), nullptr);
+			}
+		}
+
+		std::srand(SEED_TO_USE);
+		{
+			PROFILE_BLOCK("RBT find");
+
+			for (int i = 0; i < itemsToQuery; i++)
+			{
+				rbTree.find(std::rand());
 			}
 		}
 		*/
